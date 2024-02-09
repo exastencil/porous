@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require "porous/cli"
+
+Porous::CLI.start
