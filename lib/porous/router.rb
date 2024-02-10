@@ -10,7 +10,7 @@ module Porous
     # Given a path scans the routes and finds the first valid one
     def lookup(path)
       segments = (path[0] == '/' ? path[1..-1] : path).split('/')
-      key = @routes.keys.find { |key| puts segments; key.split('/') == segments }
+      key = @routes.keys.find { |key| key.split('/') == segments }
       @routes[key]
     end
   end

@@ -7,17 +7,17 @@ module Porous
     end
 
     def start
-      Rackup::Server.start(
-        app: lambda do |env|
-               page = @router.lookup env['PATH_INFO']
-               return [200, { 'content-type' => 'text/html' }, [page.new.html]] if page
+      app = lambda do |env|
+        page = @router.lookup env['PATH_INFO']
+        return [200, { 'content-type' => 'text/html' }, [page.render_html]] if page
 
-               missing = @router.lookup '404'
-               return [404, { 'content-type' => 'text/html' }, [missing.new.html]] if missing
+        missing = @router.lookup '404'
+        return [404, { 'content-type' => 'text/html' }, [missing.render_html]] if missing
 
-               [404, { 'content-type' => 'text/html' }, ['404 Not found']]
-             end
-      )
+        [404, { 'content-type' => 'text/html' }, ['404 Not found']]
+      end
+
+      Rackup::Server.start(app:)
     end
   end
 end

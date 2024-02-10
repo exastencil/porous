@@ -1,7 +1,12 @@
 class Home < Porous::Page
-  def self.route; []; end
+  render :html do
+    h1 { 'Porous Web Engine' }
 
-  def html
-    '<h1>Porous Web Engine</h1><ul><li>Home</li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li>'
+    ul do
+      li { 'Home' }
+      li { a(href: '/about') { 'About' } }
+      li { a(href: '/contact') { 'Contact' } }
+      li { a(href: '/missing') { "This page doesn't exist" } }
+    end
   end
 end
