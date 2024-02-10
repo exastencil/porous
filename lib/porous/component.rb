@@ -8,12 +8,12 @@ module Porous
 
     def self.inherited(subclass)
       subclass.instance_eval do
-        def render_html
+        def render_html(slots = {})
           if @render_html
-            # New empty context
+            # Use given context or create a new empty context
             context = RenderContext.new
             # Execute declarative script
-            context.instance_eval(&@render_html)
+            context.eval slots, &@render_html
             # Return the result in the buffer
             context.result
           else

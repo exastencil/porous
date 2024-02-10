@@ -12,25 +12,62 @@ module Porous
     def initialize(state = {})
       @state = state
       @buffer = []
+      @slots = {}
     end
 
     TAGS.each do |tag|
       define_method(tag) do |**props, &block|
         # Opening tag
         @buffer << "<#{tag}#{props.map { |k, v| " #{k}=\"#{v}\"" }.join}>"
-
         # Content
-        if block
-          output = block.call
-
-          # Text nodes
-          if output.is_a? String
-            @buffer << output
-          end
-        end
-
+        eval &block if block
         # Closing tag
         @buffer << "</#{tag}>"
+        # Return nil to indicate this wasn't a text node
+        nil
+      end
+    end
+
+    # Comments need a special case because they're opening and closing tags are non-standard
+    def comment(**props, &block)
+      # Opening tag
+      @buffer << "<!-- "
+      # Content
+      eval &block if block
+      # Closing tag
+      @buffer << " -->"
+      # Return nil to indicate this wasn't a text node
+      nil
+    end
+
+    def eval(slots = {}, &block)
+      @slots = @slots.merge slots
+      output = instance_eval &block
+
+      # Text nodes
+      if output.is_a? String
+        @buffer << output
+      end
+    end
+
+    def slot(name = :default, &placeholder)
+      if @slots[name]
+        # Slot provided by a parent component
+        eval(@slots, &@slots[name])
+      elsif placeholder
+        # Default content for slot exists
+        eval(@slots, &placeholder)
+      else
+        # Slot without default content not provided
+        raise "Missing slot for component!"
+      end
+    end
+
+    def render(component, &slot)
+      if slot
+        @buffer << component.render_html({ default: slot })
+      else
+        @buffer << component.render_html
       end
     end
 

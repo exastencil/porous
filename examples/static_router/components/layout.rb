@@ -1,5 +1,5 @@
 class Layout < Porous::Component
-  def self.render
+  render :html do
     html do
       head do
         title { 'Static Routing Example' }
@@ -7,7 +7,10 @@ class Layout < Porous::Component
 
       body do
         h1 { 'Porous Web Engine' }
-        yield if block_given?
+
+        slot do
+          p { 'Place content here' }
+        end
       end
     end
   end
