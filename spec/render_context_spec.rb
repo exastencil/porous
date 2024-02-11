@@ -39,6 +39,14 @@ RSpec.describe Porous::RenderContext do
     expect(context.result).to eq 'Porous Web Engine'
   end
 
+  it "can render explicit text nodes" do
+    context.eval do
+      text 'Porous Web Engine'
+      text ' is working!'
+    end
+    expect(context.result).to eq 'Porous Web Engine is working!'
+  end
+
   it "can render HTML comments" do
     context.eval do
       comment { 'Deprecated' }
