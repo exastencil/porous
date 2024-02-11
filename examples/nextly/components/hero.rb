@@ -51,22 +51,23 @@ class Hero < Porous::Component
 
         div class: 'flex flex-wrap justify-center gap-5 mt-10 md:justify-around' do
           div class: 'pt-2 text-gray-400 dark:text-gray-400' do
-            "AmazonLogo"
-          end
-          div class: 'text-gray-400 dark:text-gray-400' do
-            "VerizonLogo"
+            render AmazonLogo
           end
 
           div class: 'text-gray-400 dark:text-gray-400' do
-            "MicrosoftLogo"
+            render VerizonLogo
+          end
+
+          div class: 'text-gray-400 dark:text-gray-400' do
+            render MicrosoftLogo
           end
 
           div class: 'pt-1 text-gray-400 dark:text-gray-400' do
-            "NetflixLogo"
+            render NetflixLogo
           end
 
           div class: 'pt-2 text-gray-400 dark:text-gray-400' do
-            "SonyLogo"
+            render SonyLogo
           end
         end
       end
