@@ -1,23 +1,27 @@
 require 'rackup'
+require 'rack'
 
 module Porous
   class Server
-    def initialize(router: Porous::Router.new)
-      @router = router
-    end
+    def self.start
+      app = Rack::Builder.new do
+        # Serve files from ./public
+        use Rack::Static, urls: ['/public']
 
-    def start
-      app = lambda do |env|
-        page = @router.lookup env['PATH_INFO']
-        return [200, { 'content-type' => 'text/html' }, [page.render_html]] if page
+        router = Porous::Router.new
 
-        missing = @router.lookup '404'
-        return [404, { 'content-type' => 'text/html' }, [missing.render_html]] if missing
-
-        [404, { 'content-type' => 'text/html' }, ['404 Not found']]
+        run do |env|
+          if page = router.lookup(env['PATH_INFO'])
+            [200, { 'content-type' => 'text/html' }, [page.render_html]]
+          elsif missing = router.lookup('404')
+            [404, { 'content-type' => 'text/html' }, [missing.render_html]]
+          else
+            [404, { 'content-type' => 'text/plain' }, ['404 Not found']]
+          end
+        end
       end
 
-      Rackup::Server.start(app:)
+      Rackup::Server.start app:
     end
   end
 end

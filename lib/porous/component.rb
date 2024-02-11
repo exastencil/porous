@@ -22,5 +22,9 @@ module Porous
         end
       end
     end
+
+    def initialize(**props)
+      @props = props
+    end
   end
 end

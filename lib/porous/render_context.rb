@@ -63,11 +63,12 @@ module Porous
       end
     end
 
-    def render(component, &slot)
+    def render(component_or_class, &slot)
+      klass = component_or_class.is_a?(Component) ? component_or_class.class : component_or_class
       if slot
-        @buffer << component.render_html({ default: slot })
+        @buffer << klass.render_html({ default: slot })
       else
-        @buffer << component.render_html
+        @buffer << klass.render_html
       end
     end
 

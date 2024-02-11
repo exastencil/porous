@@ -24,7 +24,7 @@ module Porous
 
       puts "Ready!\n"
 
-      Porous::Server.new.start
+      Porous::Server.start
     end
   end
 end
