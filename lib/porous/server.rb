@@ -12,9 +12,9 @@ module Porous
 
         run do |env|
           if page = router.lookup(env['PATH_INFO'])
-            [200, { 'content-type' => 'text/html' }, [page.render_html]]
+            [200, { 'content-type' => 'text/html; charset=utf-8' }, [page.render_html]]
           elsif missing = router.lookup('404')
-            [404, { 'content-type' => 'text/html' }, [missing.render_html]]
+            [404, { 'content-type' => 'text/html; charset=utf-8' }, [missing.render_html]]
           else
             [404, { 'content-type' => 'text/plain' }, ['404 Not found']]
           end

@@ -1,6 +1,7 @@
 class Home < Porous::Page
   # Source: https://github.com/web3templates/nextly-template/blob/main/pages/index.js
   render :html do
+    text '<!DOCTYPE html>'
     html do
       head do
         title do
@@ -8,7 +9,7 @@ class Home < Porous::Page
         end
         meta name: 'description', content: 'Nextly is a free landing page template built with next.js & Tailwind CSS'
         link rel: 'icon', href: '/favicon.ico'
-        link rel: 'stylesheet', href: '"https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap'
+        link rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap'
         script src: "https://cdn.tailwindcss.com"
       end
 
