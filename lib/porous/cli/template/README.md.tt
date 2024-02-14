@@ -1,0 +1,7 @@
+# <%= config[:project_name] %>
+
+```sh
+$ porous run
+```
+
+Go to [http://localhost:8080/](http://localhost:8080/)

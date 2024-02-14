@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
-require "porous/cli"
+require 'porous/cli'
 
-Porous::CLI.start
+Porous::CLI.start ARGV

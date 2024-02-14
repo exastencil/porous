@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["git@exastencil.com"]
 
   spec.summary = "Isomorphic Web Engine written in Ruby"
-  spec.description = "Highly opinionated web engine (not a framework!) that can be scripted with Ruby. Generates pages with SSR and hydrates a real-time PWA that communicates over WebSockets."
+  spec.description = "Highly opinionated web engine (not a framework!) that can be scripted with Ruby."
   spec.homepage = "https://github.com/exastencil/porous"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
@@ -31,11 +31,15 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rackup", "~> 2.1"
-  spec.add_runtime_dependency "thor", "~> 1.3"
+  spec.add_dependency "opal-browser", "~> 0.3.4"
+  spec.add_dependency "opal-virtual-dom", '~> 0.6.1'
+  spec.add_dependency "thor", "~> 1.3"
+  spec.add_dependency "listen", '~> 3.0'
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.2"
   spec.add_development_dependency "rubocop", "~> 1.21"
+  spec.add_development_dependency "solargraph", "~> 0.50.0"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html

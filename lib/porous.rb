@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
-require_relative "porous/version"
+require 'opal'
+require 'opal-browser'
+Opal.append_path File.expand_path('../../opal', __FILE__)
 
-require_relative "porous/component"
-require_relative "porous/page"
-require_relative "porous/router"
-require_relative "porous/server"
+require 'opal-virtual-dom'
+require 'listen'
+
+require 'porous/version'
+require 'porous/server'
+
+module Porous
+end

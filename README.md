@@ -59,4 +59,8 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Porous project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/porous/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Porous project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/exastencil/porous/blob/master/CODE_OF_CONDUCT.md).
+
+## Acknowledgements
+
+The work done on by Michał Kalbarczyk ([fazibear](https://github.com/fazibear)) on [Inesita](https://github.com/inesita-rb/inesita) and his [VirtualDOM wrapper](https://github.com/fazibear/opal-virtual-dom) which served as the starting point for my implementation of Porous.
