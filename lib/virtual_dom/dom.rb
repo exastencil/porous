@@ -9,7 +9,9 @@ module VirtualDOM
                    small source span strong style sub summary sup table tbody td textarea tfoot th
                    thead time title tr track u ul var video wbr)
 
-    HTML_TAGS.each do |tag|
+    SVG_TAGS = %w(svg path)
+
+    (HTML_TAGS + SVG_TAGS).each do |tag|
       define_method tag do |params = {}, &block|
         if params.is_a?(String)
           process_tag(tag, {}, block, params)
@@ -47,7 +49,7 @@ module VirtualDOM
         children = [params]
         params = {}
       end
-
+      puts clazz if clazz.is_a? Symbol
       class_params = @__last_virtual_node__.params.delete(:className)
       method_params = if clazz.end_with?('!')
                         { id: clazz[0..-2],

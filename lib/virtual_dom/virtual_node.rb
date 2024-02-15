@@ -15,7 +15,7 @@ module VirtualDOM
     def to_s_params
       return unless @params.any?
 
-      ' ' + @params.map do { |k, v| "#{k}=\"#{v}\"" }.join(' ')
+      ' ' + @params.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
     end
 
     def to_s_children

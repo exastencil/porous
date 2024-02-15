@@ -9,7 +9,8 @@ module Porous
         comp = (comp.is_a?(Class) ? comp.new : comp)
                .with_root_component(@root_component)
                .inject
-        @__virtual_nodes__ << comp.init.with_props(opts[:props] || {}).render_virtual_dom
+        comp.init
+        @__virtual_nodes__ << comp.with_props(opts[:props] || {}).render_virtual_dom
         self
       end
     end

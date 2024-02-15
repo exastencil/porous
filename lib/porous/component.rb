@@ -9,7 +9,8 @@ module Porous
       base.extend Porous::Component::ClassMethods
     end
 
-    def initialize
+    def initialize(props = {})
+      @props = props
       @root_component = self
       init_injections
       inject
@@ -22,6 +23,10 @@ module Porous
     def with_props(props)
       @props = props
       self
+    end
+
+    def to_s
+      @virtual_dom.to_s
     end
   end
 end
