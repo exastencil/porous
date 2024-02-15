@@ -16,6 +16,7 @@ require 'porous/component/class_methods'
 require 'porous/component/render'
 require 'porous/component/virtual'
 require 'porous/component'
+require 'porous/page'
 require 'porous/routes'
 require 'porous/router'
 

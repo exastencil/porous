@@ -18,7 +18,9 @@ module Porous
       self
     end
 
-    attr_reader :props
+    def props
+      @props || {}
+    end
 
     def with_props(props)
       @props = props

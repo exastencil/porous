@@ -2,16 +2,10 @@ module Porous
   class Server
     class Router
       include Porous::Router
-
-      def routes
-        route '/', to: Home
-      end
     end
 
     class Application
-      include ::Porous::Component
-
-      inject Router, as: :router
+      include Porous::Component
 
       def render
         html do
@@ -25,18 +19,23 @@ module Porous
           end
 
           body class: 'bg-gray-50 dark:bg-gray-900' do
-            component router
+            component Router, props: { path: props[:path], query: props[:query] }
           end
         end
       end
     end
 
     def initialize(*args, &block)
-      content = Application.new(title: 'Porous Web').to_s
       @rack = Rack::Builder.new do
         use Rack::Static, urls: ['/static']
         run do |env|
-          [200, { 'content-type' => 'text/html' }, [content]]
+          [
+            200,
+            { 'content-type' => 'text/html' },
+            [
+              Application.new(title: 'Porous Web', path: env['PATH_INFO'], query: env['QUERY_STRING']).to_s
+            ]
+          ]
         end
       end
     end

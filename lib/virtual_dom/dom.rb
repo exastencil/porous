@@ -49,7 +49,7 @@ module VirtualDOM
         children = [params]
         params = {}
       end
-      puts clazz if clazz.is_a? Symbol
+
       class_params = @__last_virtual_node__.params.delete(:className)
       method_params = if clazz.end_with?('!')
                         { id: clazz[0..-2],

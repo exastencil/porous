@@ -78,5 +78,9 @@ module Porous
         params: params
       }
     end
+
+    def combine(other)
+      @routes += other.routes
+    end
   end
 end

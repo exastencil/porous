@@ -5,7 +5,8 @@ module Porous
         raise Error, "Implement #render in #{self.class} component"
       end
 
-      def before_render; end;
+      def before_render
+      end
 
       def render_virtual_dom
         before_render

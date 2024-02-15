@@ -4,12 +4,20 @@ module Porous
 
     attr_reader :params
 
-    def initialize
+    def initialize(props = {})
+      @props = props
       @routes = Routes.new
-      raise Error, 'Add #routes method to router!' unless respond_to?(:routes)
 
-      routes
-      raise Error, 'Add #route to your #routes method!' if @routes.routes.empty?
+      # Extract the routes from all Pages
+      ObjectSpace.each_object(Class).select { |c| c.included_modules.include? Porous::Page }.each do |klass|
+        # TODO: Figure out where these classes are coming from
+        # puts "#{klass}: #{klass.ancestors.first} (#{klass.respond_to? :new})"
+        next if klass.to_s.start_with? '#<Class:' # skip singleton classes
+
+        @routes.combine klass.new.route!
+      end
+
+      raise Error, 'No Porous::Page components found!' if @routes.routes.empty?
 
       find_route
       parse_url_params
@@ -17,10 +25,6 @@ module Porous
 
     def self.included(base)
       base.extend(Porous::Component::ClassMethods)
-    end
-
-    def route(*params, &block)
-      @routes.route(*params, &block)
     end
 
     def find_route
@@ -52,6 +56,8 @@ module Porous
     end
 
     def go_to(path)
+      # Figure out how to change path
+      @props[:path] = path
       find_route
       parse_url_params
       render!
@@ -85,11 +91,11 @@ module Porous
     end
 
     def query
-      '' # Browser.query
+      @props ? @props[:query] : '' # Browser.query
     end
 
     def path
-      '/' # Browser.path
+      @props ? @props[:path] : '/' # @props[:path] # Browser.path
     end
 
     def current_url?(name)
