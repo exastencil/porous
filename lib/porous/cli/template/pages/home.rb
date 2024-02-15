@@ -1,15 +1,17 @@
 class Home
-  # include Porous::Page
+  include Porous::Page
   include Porous::Component
 
   def route = '/'
 
   def render
-    div class: 'container p-8 mx-auto xl:px-0 flex flex-wrap' do
+    div class: 'container p-8 mx-auto lg:h-full xl:px-0 flex flex-wrap' do
       div class: 'flex items-center w-full lg:w-1/2' do
         div class: 'max-w-2xl mb-8' do
           h1 class: 'text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white' do
-            text 'Welcome to Porous'
+            span class: "bg-gradient-to-br from-pink-500 to-violet-500 bg-clip-text text-transparent box-decoration-clone" do
+              text 'Welcome to Porous!'
+            end
           end
           p class: 'py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300' do
             text 'Porous is an all-in-one application engine for building applications with Web technologies.'
@@ -17,8 +19,11 @@ class Home
 
           div class: 'flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row' do
             a href: 'https://github.com/exastencil/porous', target: '_blank', rel: 'noopener',
-              class: 'px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md' do
-              text 'Get Started'
+              class: "group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-indigo-600 px-6 font-medium text-neutral-200 transition hover:scale-110" do
+              span 'Get Started'
+              div class: "absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]" do
+                div class: "relative h-full w-8 bg-white/20"
+              end
             end
             a href: 'https://github.com/exastencil/porous', target: '_blank', rel: 'noopener',
               class: 'flex items-center space-x-2 text-gray-500 dark:text-gray-400' do

@@ -18,7 +18,7 @@ module Porous
       directory('template', project_dir, project_name: project_dir)
 
       inside project_dir do
-        run 'bundle install'
+        # run 'bundle install'
       end
     end
 

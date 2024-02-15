@@ -36,16 +36,19 @@ Porous is not a framework. You don't build an application with it as a dependenc
 
 Porous is still pre-alpha and so is not ready for usage yet, but the general idea is that you would define your application's entities, pages, components and events in Ruby scripts structured in a specific way. Then you would simply run `porous` while pointing it to that folder and it will spin up a Rack-compatible web server for you to use.
 
+To start a new Porous project simply `gem install porous` using whichever Ruby environment you want to use (Ruby 3.0 minimum). Then change to that directory and run:
+
+    $ porous server
+
+By default Porous will run at `loclahost:9292`. Now you can edit `pages/home.rb` or add more pages. Finally restart the server and refresh the page. Hot-reloading will be coming later.
 
 ### Running examples
 
 To test out some example "apps" using Porous you can navigate to the examples folder and in any folder run:
 
-    $ bundle exec ../../bin/porous dev
+    $ porous server
 
 ## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
@@ -63,4 +66,4 @@ Everyone interacting in the Porous project's codebases, issue trackers, chat roo
 
 ## Acknowledgements
 
-The work done on by Michał Kalbarczyk ([fazibear](https://github.com/fazibear)) on [Inesita](https://github.com/inesita-rb/inesita) and his [VirtualDOM wrapper](https://github.com/fazibear/opal-virtual-dom) which served as the starting point for my implementation of Porous.
+The work done by Michał Kalbarczyk ([fazibear](https://github.com/fazibear)) on [Inesita](https://github.com/inesita-rb/inesita) and his [VirtualDOM wrapper](https://github.com/fazibear/opal-virtual-dom) which served as the starting point for my implementation of Porous.

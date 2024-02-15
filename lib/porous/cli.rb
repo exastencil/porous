@@ -1,11 +1,6 @@
 require 'thor'
 
-begin
-  require 'bundler'
-  Bundler.require
-rescue Bundler::GemfileNotFound
-  require 'opal-virtual-dom'
-end
+require 'porous'
 
 require 'rack'
 require 'rackup/server'
