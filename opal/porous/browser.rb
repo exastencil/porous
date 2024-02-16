@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Porous
   module Browser
     module_function

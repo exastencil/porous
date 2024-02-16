@@ -1,15 +1,18 @@
+# frozen_string_literal: true
+
 class Home
   include Porous::Page
   include Porous::Component
 
   def route = '/'
 
+  # rubocop:disable Metrics, Layout/LineLength
   def render
     div class: 'container p-8 mx-auto lg:h-full xl:px-0 flex flex-wrap' do
       div class: 'flex items-center w-full lg:w-1/2' do
         div class: 'max-w-2xl mb-8' do
           h1 class: 'text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white' do
-            span class: "bg-gradient-to-br from-pink-500 to-violet-500 bg-clip-text text-transparent box-decoration-clone" do
+            span class: 'bg-gradient-to-br from-pink-500 to-violet-500 bg-clip-text text-transparent box-decoration-clone' do
               text 'Welcome to Porous!'
             end
           end
@@ -19,10 +22,10 @@ class Home
 
           div class: 'flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row' do
             a href: 'https://github.com/exastencil/porous', target: '_blank', rel: 'noopener',
-              class: "group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-indigo-600 px-6 font-medium text-neutral-200 transition hover:scale-110" do
+              class: 'group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-indigo-600 px-6 font-medium text-neutral-200 transition hover:scale-110' do
               span 'Get Started'
-              div class: "absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]" do
-                div class: "relative h-full w-8 bg-white/20"
+              div class: 'absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]' do
+                div class: 'relative h-full w-8 bg-white/20'
               end
             end
             a href: 'https://github.com/exastencil/porous', target: '_blank', rel: 'noopener',
@@ -45,4 +48,5 @@ class Home
       end
     end
   end
+  # rubocop:enable Metrics, Layout/LineLength
 end

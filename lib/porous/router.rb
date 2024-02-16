@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Porous
   module Router
     include Porous::Component
@@ -50,9 +52,9 @@ module Porous
     def call_on_enter_callback(route)
       return unless route[:on_enter]
 
-      if route[:on_enter].respond_to?(:call)
-        route[:on_enter].call
-      end
+      return unless route[:on_enter].respond_to?(:call)
+
+      route[:on_enter].call
     end
 
     def go_to(path)
@@ -66,14 +68,16 @@ module Porous
 
     def parse_url_params
       @params = component_url_params
-      query[1..-1].split('&').each do |param|
+      return if query.empty?
+
+      query[1..].split('&').each do |param|
         key, value = param.split('=')
         @params[key] = value
-      end unless query.empty?
+      end
     end
 
     def component_url_params
-      Hash[@route[:params].zip(path.match(@route[:regex])[1..-1])]
+      @route[:params].zip(path.match(@route[:regex])[1..]).to_h
     end
 
     def url_for(name, params = nil)
@@ -104,9 +108,9 @@ module Porous
 
     def url_with_params(route, params)
       path = route[:path]
-      params.each do |key, value|
-        path = path.gsub(":#{key}", "#{value}")
-      end if params
+      params&.each do |key, value|
+        path = path.gsub(":#{key}", value.to_s)
+      end
       path
     end
   end

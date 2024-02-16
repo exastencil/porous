@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Porous
   module Component
     include VirtualDOM::DOM
@@ -15,7 +17,6 @@ module Porous
       init_injections
       inject
       @virtual_dom = render_virtual_dom
-      self
     end
 
     def props

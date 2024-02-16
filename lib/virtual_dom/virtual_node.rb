@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VirtualDOM
   class VirtualNode
     attr_reader :name, :params, :children
@@ -15,7 +17,7 @@ module VirtualDOM
     def to_s_params
       return unless @params.any?
 
-      ' ' + @params.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
+      " #{@params.map { |k, v| "#{k}=\"#{v}\"" }.join(" ")}"
     end
 
     def to_s_children

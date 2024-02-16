@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-require_relative "lib/porous/version"
+require_relative 'lib/porous/version'
 
 Gem::Specification.new do |spec|
-  spec.name = "porous"
+  spec.name = 'porous'
   spec.version = Porous::VERSION
-  spec.authors = ["Exa Stencil"]
-  spec.email = ["git@exastencil.com"]
+  spec.authors = ['Exa Stencil']
+  spec.email = ['git@exastencil.com']
 
-  spec.summary = "Isomorphic Web Engine written in Ruby"
-  spec.description = "Highly opinionated web engine (not a framework!) that can be scripted with Ruby."
-  spec.homepage = "https://github.com/exastencil/porous"
-  spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.0.0"
+  spec.summary = 'Isomorphic Web Engine written in Ruby'
+  spec.description = 'Highly opinionated web engine (not a framework!) that can be scripted with Ruby.'
+  spec.homepage = 'https://github.com/exastencil/porous'
+  spec.license = 'MIT'
+  spec.required_ruby_version = '>= 3.0.0'
 
-  spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/exastencil/porous"
-  spec.metadata["changelog_uri"] = "https://github.com/exastencil/porous/blob/main/CHANGELOG.md"
+  spec.metadata['homepage_uri'] = spec.homepage
+  spec.metadata['source_code_uri'] = 'https://github.com/exastencil/porous'
+  spec.metadata['changelog_uri'] = 'https://github.com/exastencil/porous/blob/main/CHANGELOG.md'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -26,21 +26,15 @@ Gem::Specification.new do |spec|
         f.start_with?(*%w[bin/ test/ spec/ features/ examples/ .git .github appveyor Gemfile])
     end
   end
-  spec.bindir = "exe"
+  spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
-  spec.add_dependency "rackup", "~> 2.1"
-  spec.add_dependency "opal-browser", "~> 0.3.4"
-  spec.add_dependency "opal-virtual-dom", '~> 0.6.1'
-  spec.add_dependency "thor", "~> 1.3"
-  spec.add_dependency "listen", '~> 3.0'
+  spec.add_dependency 'listen', '~> 3.0'
+  spec.add_dependency 'opal-browser', '~> 0.3.4'
+  spec.add_dependency 'opal-virtual-dom', '~> 0.6.1'
+  spec.add_dependency 'rackup', '~> 2.1'
+  spec.add_dependency 'thor', '~> 1.3'
 
-  spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rspec", "~> 3.2"
-  spec.add_development_dependency "rubocop", "~> 1.21"
-  spec.add_development_dependency "solargraph", "~> 0.50.0"
-
-  # For more information and examples about making a new gem, check out our
-  # guide at: https://bundler.io/guides/creating_gem.html
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end

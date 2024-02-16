@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Porous
   class Routes
     attr_reader :routes
@@ -7,8 +9,9 @@ module Porous
       @routes = []
     end
 
+    # rubocop:disable Metrics/AbcSize
     def route(*params, &block)
-      path = params.first.gsub(/^\//, '')
+      path = params.first.gsub(%r{^/}, '')
       path = @parent ? "#{@parent}/#{path}" : "/#{path}"
 
       add_subroutes(path, &block) if block_given?
@@ -19,12 +22,15 @@ module Porous
         add_route(params.last[:as], path, params.last[:to], params.last[:props], params.last[:on_enter])
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def validate_component(component)
       raise Error, 'Component not exists' unless component
 
+      return if component.include?(Porous::Component)
+
       raise Error,
-            "Invalid #{component} class, should mixin Porous::Component" unless component.include?(Porous::Component)
+            "Invalid #{component} class, should mixin Porous::Component"
     end
 
     def add_redirect(path, redirect_to)
@@ -51,6 +57,7 @@ module Porous
       @routes += subroutes.routes
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def build_params_and_regex(path)
       regex = ['^']
       params = []
@@ -62,10 +69,10 @@ module Porous
         regex << '\/'
         case part[0]
         when ':'
-          params << part[1..-1]
+          params << part[1..]
           regex << '([^\/]+)'
         when '*'
-          params << part[1..-1]
+          params << part[1..]
           regex << '(.*)'
           break
         else
@@ -78,6 +85,7 @@ module Porous
         params: params
       }
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def combine(other)
       @routes += other.routes

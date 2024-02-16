@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Porous
   class Server
     class Router
@@ -25,7 +27,7 @@ module Porous
       end
     end
 
-    def initialize(*args, &block)
+    def initialize(*_args)
       @rack = Rack::Builder.new do
         use Rack::Static, urls: ['/static']
         run do |env|

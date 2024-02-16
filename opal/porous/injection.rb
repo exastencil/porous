@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Porous
   module Injection
     def init; end
@@ -20,16 +22,14 @@ module Porous
 
     def init_injections
       @injections ||= {}
-      self.class.injections.each do |name, clazz|
-        if clazz.included_modules.include?(Porous::Injection)
-          @injections[name] = clazz
-                              .new
-                              .with_root_component(@root_component)
-        else
-          raise Error, "Invalid #{clazz} class, should mixin Porous::Injection"
+      self.class.injections.each do |name, klass|
+        unless klass.included_modules.include?(Porous::Injection)
+          raise Error, "Invalid #{klass} class, should mixin Porous::Injection"
         end
+
+        @injections[name] = klass.new.with_root_component(@root_component)
       end
-      @injections.each do |key, instance|
+      @injections.each_value do |instance|
         instance.inject
         instance.init
       end

@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module VirtualDOM
   module DOM
-    HTML_TAGS = %w(a abbr address area article aside audio b base bdi bdo big blockquote body br
+    HTML_TAGS = %w[a abbr address area article aside audio b base bdi bdo big blockquote body br
                    button canvas caption cite code col colgroup data datalist dd del details dfn
                    dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5
                    h6 head header hr html i iframe img input ins kbd keygen label legend li link
                    main map mark menu menuitem meta meter nav noscript object ol optgroup option
                    output p param picture pre progress q rp rt ruby s samp script section select
                    small source span strong style sub summary sup table tbody td textarea tfoot th
-                   thead time title tr track u ul var video wbr)
+                   thead time title tr track u ul var video wbr].freeze
 
-    SVG_TAGS = %w(svg path)
+    SVG_TAGS = %w[svg path].freeze
 
     (HTML_TAGS + SVG_TAGS).each do |tag|
       define_method tag do |params = {}, &block|
@@ -38,7 +40,8 @@ module VirtualDOM
       self
     end
 
-    def method_missing(clazz, params = {}, &block)
+    # rubocop:disable Style/MissingRespondToMissing, Metrics/MethodLength, Metrics/AbcSize
+    def method_missing(klass, params = {}, &block)
       return unless @__last_virtual_node__
       return unless @__virtual_nodes__
 
@@ -51,28 +54,29 @@ module VirtualDOM
       end
 
       class_params = @__last_virtual_node__.params.delete(:className)
-      method_params = if clazz.end_with?('!')
+      method_params = if klass.end_with?('!')
                         { id: clazz[0..-2],
                           class: merge_string(class_params, params[:class]) }
                       else
-                        { class: merge_string(class_params, params[:class], clazz.gsub('_', '-').gsub('--', '_')) }
+                        { class: merge_string(class_params, params[:class], klass.gsub('_', '-').gsub('--', '_')) }
                       end
       params = @__last_virtual_node__.params.merge(params).merge(method_params)
       process_tag(@__last_virtual_node__.name, params, block, children)
     end
+    # rubocop:enable Style/MissingRespondToMissing, Metrics/MethodLength, Metrics/AbcSize
 
     def merge_string(*params)
       arr = []
       params.each do |string|
         next unless string
 
-        arr << string.split(' ')
+        arr << string.split
       end
       arr.join(' ')
     end
 
     def process_params(params)
-      params.dup.each do |k, v|
+      params.dup.each_key do |k|
         case k
         when 'for'
           params['htmlFor'] = params.delete('for')
