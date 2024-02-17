@@ -18,11 +18,13 @@ module Porous
 
     no_commands do
       def transpile
-        # TODO: Use Opal::Builder to generate pages, components and entities into static/dist
+        components = Dir.glob(File.join('{components,pages}', '**', '*.rb')).map do |relative_path|
+          "require '#{relative_path}'"
+        end
+        build_string = "require 'porous'; #{components.join ';'}".gsub '.rb', ''
         builder = Opal::Builder.new
-        builder.build_str 'require "opal"; require "native"; require "promise"; require "browser/setup/full"',
-                          '(inline)'
-        File.binwrite "#{Dir.pwd}/static/dist/runtime.js", builder.to_s
+        builder.build_str build_string, '(inline)'
+        File.binwrite "#{Dir.pwd}/static/dist/application.js", builder.to_s
       end
 
       # rubocop:disable Metrics/MethodLength

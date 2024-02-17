@@ -19,7 +19,7 @@ module Porous
       inject
       @virtual_dom = render_virtual_dom
       @root_node = VirtualDOM.create @virtual_dom
-      Browser.append_child element, @root_node
+      element.replace_with @root_node
       self
     end
 

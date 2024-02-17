@@ -22,14 +22,12 @@ module Porous
 
     def init_injections
       @injections ||= {}
-      self.class.injections.each do |name, clazz|
-        unless clazz.included_modules.include?(Porous::Injection)
-          raise Error, "Invalid #{clazz} class, should mixin Porous::Injection"
+      self.class.injections.each do |name, klass|
+        unless klass.included_modules.include?(Porous::Injection)
+          raise Error, "Invalid #{klass} class, should mixin Porous::Injection"
         end
 
-        @injections[name] = clazz
-                            .new
-                            .with_root_component(@root_component)
+        @injections[name] = klass.new.with_root_component(@root_component)
       end
       @injections.each_value do |instance|
         instance.inject

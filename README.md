@@ -23,7 +23,7 @@ A page is conceptually similar to what would be rendered when visiting a specifi
 
 ### Components
 
-A component is any composable unit of code responsible for rendering markup, potentially based on some state. This is somewhat equivalent to Web Components, in that it can also have some behaviour attached. But it can also simply be based to remove code duplication. Essentially any markup that has behaviour attached or would otherwise create code duplication should probably be in a Components.
+A component is any composable unit of code responsible for rendering markup, potentially based on some state. This is somewhat equivalent to Web Components, in that it can also have some behaviour attached. But it can also simply be used to remove code duplication. Essentially any markup that has behaviour attached or would otherwise create code duplication should probably be in Components.
 
 ### Entities
 
@@ -42,6 +42,8 @@ Porous is not a framework. You don't build an application with it as a dependenc
 ## Usage
 
 Porous is still pre-alpha and so is not ready for usage yet, but the general idea is that you would define your application's entities, pages, components and events in Ruby scripts structured in a specific way. Then you would simply run `porous` while pointing it to that folder and it will spin up a Rack-compatible web server for you to use.
+
+> ⚠️ Expect any and all APIs to change radically until version 1.0! Hence why it won't be documented or properly tested until things settle to a more stable state.
 
 To start a new Porous project simply `gem install porous` using whichever Ruby environment you want to use (Ruby 3.0+). Then change to that directory and run:
 

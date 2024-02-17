@@ -3,7 +3,9 @@
 require 'opal'
 require 'opal-browser'
 require 'opal-virtual-dom'
+
 Opal.append_path File.expand_path('../opal', __dir__)
+Opal.append_path File.expand_path(Dir.pwd)
 
 require 'listen'
 
@@ -25,7 +27,7 @@ Dir.glob(File.join('{components,pages}', '**', '*.rb')).each do |relative_path|
 end
 
 require 'porous/application'
-require 'porous/server'
+require 'porous/server' unless RUBY_ENGINE == 'opal'
 
 module Porous
   class Error < StandardError; end
