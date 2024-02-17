@@ -24,6 +24,7 @@ Dir.glob(File.join('{components,pages}', '**', '*.rb')).each do |relative_path|
   require File.expand_path("#{Dir.pwd}/#{relative_path}")
 end
 
+require 'porous/application'
 require 'porous/server'
 
 module Porous

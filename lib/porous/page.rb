@@ -9,5 +9,8 @@ module Porous
         routes.route path, to: self.class
       end
     end
+
+    def page_title = 'Porous Web'
+    def page_description = nil
   end
 end

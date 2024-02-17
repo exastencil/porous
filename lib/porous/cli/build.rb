@@ -25,6 +25,7 @@ module Porous
         File.binwrite "#{Dir.pwd}/static/dist/runtime.js", builder.to_s
       end
 
+      # rubocop:disable Metrics/MethodLength
       def live_reload
         timestamp = Time.now.to_i.to_s
         File.write "#{Dir.pwd}/static/dist/timestamp", timestamp
@@ -44,6 +45,7 @@ module Porous
         builder.build_str script, '(inline)'
         File.binwrite "#{Dir.pwd}/static/dist/reload.js", builder.to_s
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

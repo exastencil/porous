@@ -100,11 +100,11 @@ module Porous
     end
 
     def query
-      @props ? @props[:query] : '' # Browser.query
+      @props ? @props[:query] : ''
     end
 
     def path
-      @props ? @props[:path] : '/' # @props[:path] # Browser.path
+      @props ? @props[:path] : '/'
     end
 
     def current_url?(name)
