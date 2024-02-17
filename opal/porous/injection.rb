@@ -36,7 +36,11 @@ module Porous
     end
 
     def render!
-      Browser.animation_frame do
+      if Browser::AnimationFrame.supported?
+        animation_frame do
+          @root_component.render_if_root
+        end
+      else
         @root_component.render_if_root
       end
     end

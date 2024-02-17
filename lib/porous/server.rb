@@ -2,25 +2,8 @@
 
 module Porous
   class Server
-    MONITORING = %w[components pages].freeze
-
     def initialize(*_args)
-      MONITORING.each { |path| FileUtils.mkdir_p path }
-      start_live_reload
       setup_rack_app
-    end
-
-    def start_live_reload
-      opts = { only: /\.rb$/, relative: true }
-      @listener = Listen.to(*MONITORING, opts) do |modified, added, _removed|
-        (modified + added).each do |file|
-          load File.expand_path("#{Dir.pwd}/#{file}")
-        end
-        # Signal a browser refresh
-        File.write "#{Dir.pwd}/static/dist/timestamp", Time.now.to_i.to_s
-      end
-      @listener.start
-      at_exit { @listener.stop }
     end
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize

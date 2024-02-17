@@ -8,20 +8,24 @@ module Porous
 
     namespace :build
 
-    desc 'build', 'Build static assets'
+    def self.exit_on_failure?
+      true
+    end
 
+    desc 'build', 'Build static assets'
     def build
       empty_directory 'static/dist', verbose: false, force: options[:force]
       transpile
       live_reload
     end
 
+    # rubocop:disable Metrics/BlockLength
     no_commands do
       def transpile
         components = Dir.glob(File.join('{components,pages}', '**', '*.rb')).map do |relative_path|
           "require '#{relative_path}'"
         end
-        build_string = "require 'porous'; #{components.join ';'}".gsub '.rb', ''
+        build_string = "require 'porous'; #{components.join ";"}".gsub '.rb', ''
         builder = Opal::Builder.new
         builder.build_str build_string, '(inline)'
         File.binwrite "#{Dir.pwd}/static/dist/application.js", builder.to_s
@@ -49,5 +53,6 @@ module Porous
       end
       # rubocop:enable Metrics/MethodLength
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end

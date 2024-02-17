@@ -1,9 +1,6 @@
 ## [Planned]
 
-- Client-side component rendering
-- Client-side routing
 - WebSockets support
-- Client-side hot reloading
 - Production mode
 
 ## [Unreleased]
@@ -11,6 +8,9 @@
 - Server-side hot reloading (browser reloads on changes)
 - Dynamic page metadata
 - Less noisy logging (silence logging for Rack::Static)
+- Client-side component rendering (sans SVG support)
+- Client-side routing / navigation
+- Client-side hot reloading
 
 ## [0.1.1] - 17 February 2024
 

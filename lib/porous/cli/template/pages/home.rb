@@ -25,7 +25,7 @@ class Home
           div class: 'flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row' do
             a href: 'https://github.com/exastencil/porous', target: '_blank', rel: 'noopener',
               class: 'group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-indigo-600 px-6 font-medium text-neutral-200 transition hover:scale-110' do
-              span 'Get Started'
+              span 'Get Started 🧽'
               div class: 'absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]' do
                 div class: 'relative h-full w-8 bg-white/20'
               end

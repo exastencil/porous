@@ -55,10 +55,10 @@ module VirtualDOM
 
       class_params = @__last_virtual_node__.params.delete(:className)
       method_params = if klass.end_with?('!')
-                        { id: clazz[0..-2],
+                        { id: klass[0..-2],
                           class: merge_string(class_params, params[:class]) }
                       else
-                        { class: merge_string(class_params, params[:class], klass.gsub('_', '-').gsub('--', '_')) }
+                        { class: merge_string(class_params, params[:class], klass.to_s.gsub('_', '-').gsub('--', '_')) }
                       end
       params = @__last_virtual_node__.params.merge(params).merge(method_params)
       process_tag(@__last_virtual_node__.name, params, block, children)
