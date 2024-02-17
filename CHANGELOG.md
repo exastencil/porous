@@ -1,15 +1,18 @@
 ## [Planned]
 
-- Server-side hot reloading
 - Dynamic page metadata
 - Client-side component rendering
 - Client-side routing
-- Websockets support
+- WebSockets support
 - Client-side hot reloading
+
+## [Unreleased]
+
+- Server-side hot reloading (browser reloads on changes)
 
 ## [0.1.1] - 17 February 2024
 
-- Server-side reloading
+- Server-side reloading (server requests reflect changes)
 
 ## [0.1.0] - 15 February 2024
 

@@ -20,6 +20,7 @@ module Porous
                   desc: 'The host address Porous will bind to'
 
     def server
+      build
       Rackup::Server.start environment: 'development', builder: 'run Porous::Server.new'
     end
   end

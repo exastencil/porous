@@ -1,10 +1,18 @@
 # Porous
 
-Porous is a web engine that uses isomorphic Ruby components to build a Progressive Web App. Its use is analogous to a web framework, but the approach is entirely different.
+Porous is a web engine that uses isomorphic Ruby components to build a Progressive Web App. Its use is analogous to a web framework, but the approach is entirely different. You write only
 
 This project is a work-in-progress and is not yet even in the Proof of Concept phase. However, if you are interested in a full-stack, everything included solution, that only requires you to use one language (that is arguably easy and enjoyable to write) then feel free to follow this project.
 
 The closest thing to this I could find was [Volt](https://github.com/voltrb/volt) or [Silica](https://github.com/youchan/silica), neither of which are active or match the overall development flow I'm looking for.
+
+
+## Current Features
+
+- No bundled runtime (only code unique to your app needs to be checked in)
+- Server-side rendering (server responds with the entire page populated)
+- Serves static files (from `static` folder)
+- Hot reloading (via HTTP polling and browser refresh)
 
 ## Design
 
@@ -40,7 +48,7 @@ To start a new Porous project simply `gem install porous` using whichever Ruby e
 
     $ porous server
 
-By default Porous will run at `loclahost:9292`. Now you can edit `pages/home.rb` or add more pages. Files you modify will be reloaded so you can simply refresh the page in your browser. Hot-reloading will be coming later once WebSockets support is implemented.
+By default Porous will run at `loclahost:9292`. Now you can edit `pages/home.rb` or add more pages. Files you modify will be hot-reloaded so you can simply open the page in your browser and edit the file. Hot-reloading will be improved once WebSockets support is implemented.
 
 ### Running examples
 

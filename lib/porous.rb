@@ -2,9 +2,9 @@
 
 require 'opal'
 require 'opal-browser'
+require 'opal-virtual-dom'
 Opal.append_path File.expand_path('../opal', __dir__)
 
-require 'opal-virtual-dom'
 require 'listen'
 
 require 'porous/version'
