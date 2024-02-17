@@ -1,14 +1,16 @@
 ## [Planned]
 
-- Dynamic page metadata
+- Less noisy logging
 - Client-side component rendering
 - Client-side routing
 - WebSockets support
 - Client-side hot reloading
+- Production mode
 
 ## [Unreleased]
 
 - Server-side hot reloading (browser reloads on changes)
+- Dynamic page metadata
 
 ## [0.1.1] - 17 February 2024
 
