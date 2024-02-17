@@ -23,12 +23,20 @@ module Porous
       at_exit { @listener.stop }
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def setup_rack_app
       @rack = Rack::Builder.new do
+        use Rack::ContentLength
         use Rack::Static, urls: ['/static']
+        use Rack::CommonLogger
+        use Rack::ShowExceptions
+        use Rack::Lint
+        use Rack::TempfileReaper
+
         run do |env|
-          page = find_page
+          router = Porous::Router.new path: env['PATH_INFO'], query: env['QUERY_STRING']
+          route = router.find_route
+          page = route[:component].new(route[:params])
 
           [200, { 'content-type' => 'text/html' }, [
             Porous::Application.new(
@@ -45,15 +53,7 @@ module Porous
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength
-
-    # Uses the current request to find the component to render.
-    # May raise Porous::InvalidRouteError if one can't be found.
-    def find_page
-      router = Porous::Router.new path: env['PATH_INFO'], query: env['QUERY_STRING']
-      route = router.find_route
-      route[:component].new(route[:params])
-    end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def call(*args)
       @rack.call(*args)

@@ -1,4 +1,4 @@
-# Porous
+# 🧽 Porous
 
 Porous is a web engine that uses isomorphic Ruby components to build a Progressive Web App. Its use is analogous to a web framework, but the approach is entirely different. You write only
 
@@ -6,13 +6,12 @@ This project is a work-in-progress and is not yet even in the Proof of Concept p
 
 The closest thing to this I could find was [Volt](https://github.com/voltrb/volt) or [Silica](https://github.com/youchan/silica), neither of which are active or match the overall development flow I'm looking for.
 
-
 ## Current Features
 
-- No bundled runtime (only code unique to your app needs to be checked in)
-- Server-side rendering (server responds with the entire page populated)
-- Serves static files (from `static` folder)
-- Hot reloading (via HTTP polling and browser refresh)
+- 🙅 No bundled runtime (only code unique to your app needs to be in your repository)
+- 🖥️ Server-side rendering (server responds with the entire page populated for SEO)
+- 🌄 Serves static files (from `static` folder)
+- 🔥 Hot reloading (via HTTP polling and browser refresh)
 
 ## Design
 
@@ -44,11 +43,11 @@ Porous is not a framework. You don't build an application with it as a dependenc
 
 Porous is still pre-alpha and so is not ready for usage yet, but the general idea is that you would define your application's entities, pages, components and events in Ruby scripts structured in a specific way. Then you would simply run `porous` while pointing it to that folder and it will spin up a Rack-compatible web server for you to use.
 
-To start a new Porous project simply `gem install porous` using whichever Ruby environment you want to use (Ruby 3.0 minimum). Then change to that directory and run:
+To start a new Porous project simply `gem install porous` using whichever Ruby environment you want to use (Ruby 3.0+). Then change to that directory and run:
 
     $ porous server
 
-By default Porous will run at `loclahost:9292`. Now you can edit `pages/home.rb` or add more pages. Files you modify will be hot-reloaded so you can simply open the page in your browser and edit the file. Hot-reloading will be improved once WebSockets support is implemented.
+By default Porous will run at `localhost:9292`. Now you can edit `pages/home.rb` or add more pages. Files you modify will be hot-reloaded so you can simply open the page in your browser and edit the file. Hot-reloading will be improved once WebSockets support is implemented.
 
 ### Running examples
 
@@ -74,4 +73,4 @@ Everyone interacting in the Porous project's codebases, issue trackers, chat roo
 
 ## Acknowledgements
 
-I'd like to thank Michał Kalbarczyk ([fazibear](https://github.com/fazibear)) for his work done on [Inesita](https://github.com/inesita-rb/inesita) and his [VirtualDOM wrapper](https://github.com/fazibear/opal-virtual-dom) which served as the starting point for my implementation of Porous.
+I'd like to thank Michał Kalbarczyk ([fazibear](https://github.com/fazibear)) for his work done on [Inesita](https://github.com/inesita-rb/inesita) and his [VirtualDOM wrapper](https://github.com/fazibear/opal-virtual-dom) which served as the starting point for my implementation of Porous. While my final approach may deviate significantly from theirs, having code to review and a workable starting point was invaluable.

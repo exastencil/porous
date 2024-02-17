@@ -21,7 +21,7 @@ module Porous
 
     def server
       build
-      Rackup::Server.start environment: 'development', builder: 'run Porous::Server.new'
+      Rackup::Server.start environment: 'none', app: Porous::Server.new
     end
   end
 end

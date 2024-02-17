@@ -1,6 +1,5 @@
 ## [Planned]
 
-- Less noisy logging
 - Client-side component rendering
 - Client-side routing
 - WebSockets support
@@ -11,6 +10,7 @@
 
 - Server-side hot reloading (browser reloads on changes)
 - Dynamic page metadata
+- Less noisy logging (silence logging for Rack::Static)
 
 ## [0.1.1] - 17 February 2024
 
