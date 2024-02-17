@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Porous
-  module Router
+  class Router
     include Porous::Component
 
     attr_reader :params
@@ -25,6 +25,10 @@ module Porous
       parse_url_params
     end
 
+    def routes
+      @routes.routes
+    end
+
     def self.included(base)
       base.extend(Porous::Component::ClassMethods)
     end
@@ -36,7 +40,8 @@ module Porous
 
         return @route = route
       end
-      raise Error, "Can't find route for url"
+      available_routes = @routes.routes.map { |r| "  #{r[:path]} => #{r[:component]}" }.join
+      raise InvalidRouteError, "Unknown route for: #{path}\n\nAvailable routes:\n\n#{available_routes}"
     end
 
     def find_component(route)

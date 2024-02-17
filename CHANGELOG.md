@@ -7,6 +7,10 @@
 - Websockets support
 - Client-side hot reloading
 
+## [0.1.1] - 17 February 2024
+
+- Server-side reloading
+
 ## [0.1.0] - 15 February 2024
 
 - `porous server` to run apps

@@ -40,7 +40,7 @@ To start a new Porous project simply `gem install porous` using whichever Ruby e
 
     $ porous server
 
-By default Porous will run at `loclahost:9292`. Now you can edit `pages/home.rb` or add more pages. Finally restart the server and refresh the page. Hot-reloading will be coming later.
+By default Porous will run at `loclahost:9292`. Now you can edit `pages/home.rb` or add more pages. Files you modify will be reloaded so you can simply refresh the page in your browser. Hot-reloading will be coming later once WebSockets support is implemented.
 
 ### Running examples
 
@@ -66,4 +66,4 @@ Everyone interacting in the Porous project's codebases, issue trackers, chat roo
 
 ## Acknowledgements
 
-The work done by Michał Kalbarczyk ([fazibear](https://github.com/fazibear)) on [Inesita](https://github.com/inesita-rb/inesita) and his [VirtualDOM wrapper](https://github.com/fazibear/opal-virtual-dom) which served as the starting point for my implementation of Porous.
+I'd like to thank Michał Kalbarczyk ([fazibear](https://github.com/fazibear)) for his work done on [Inesita](https://github.com/inesita-rb/inesita) and his [VirtualDOM wrapper](https://github.com/fazibear/opal-virtual-dom) which served as the starting point for my implementation of Porous.

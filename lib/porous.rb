@@ -27,4 +27,6 @@ end
 require 'porous/server'
 
 module Porous
+  class Error < StandardError; end
+  class InvalidRouteError < Error; end
 end
