@@ -3,10 +3,10 @@
 - WebSockets support
 - Production mode
 
-## [Unreleased]
+## [0.2.0] - 18 February 2024
 
 - Server-side hot reloading (browser reloads on changes)
-- Dynamic page metadata
+- Dynamic page metadata (title and description)
 - Less noisy logging (silence logging for Rack::Static)
 - Client-side component rendering (sans SVG support)
 - Client-side routing / navigation
