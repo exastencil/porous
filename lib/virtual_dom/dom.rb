@@ -11,8 +11,9 @@ module VirtualDOM
                    small source span strong style sub summary sup table tbody td textarea tfoot th
                    thead time title tr track u ul var video wbr].freeze
 
-    SVG_TAGS = %w[svg path].freeze
-
+    SVG_TAGS = %w[animate animateMotion animateTransform circle clipPath defs desc ellipse filter
+                  foreignObject g image line linearGradient marker mask metadata mpath path pattern
+                  polygon polyline radialGradient rect set stop svg switch symbol textPath tspan use view].freeze
     (HTML_TAGS + SVG_TAGS).each do |tag|
       define_method tag do |params = {}, &block|
         if params.is_a?(String)

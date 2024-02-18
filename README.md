@@ -1,8 +1,8 @@
 # 🧽 Porous
 
-Porous is a web engine that uses isomorphic Ruby components to build a Progressive Web App. Its use is analogous to a web framework, but the approach is entirely different. You write only
+Porous is a web engine that uses isomorphic Ruby components to build a Progressive Web App. Its use is analogous to a web framework, but the approach is entirely different. You write *only* the code that is *unique to your application* and the engine takes care of the rest!
 
-This project is a work-in-progress and is not yet even in the Proof of Concept phase. However, if you are interested in a full-stack, everything included solution, that only requires you to use one language (that is arguably easy and enjoyable to write) then feel free to follow this project.
+This project is a **work-in-progress** and is not yet even in the Proof of Concept phase. However, if you are interested in a full-stack, everything included solution, that only requires you to use one language (that is arguably easy and enjoyable to write) then feel free to follow this project.
 
 The closest thing to this I could find was [Volt](https://github.com/voltrb/volt) or [Silica](https://github.com/youchan/silica), neither of which are active or match the overall development flow I'm looking for.
 

@@ -5,20 +5,26 @@ require 'native'
 require 'promise'
 require 'browser/setup/full'
 
-require 'js'
-require 'console'
-
 require 'virtual_dom'
 require 'virtual_dom/support/browser'
 
-VirtualDOM::DOM::HTML_TAGS = %w[a abbr address area article aside audio b base bdi bdo big blockquote body br
-                                button canvas caption cite code col colgroup data datalist dd del details dfn
-                                dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5
-                                h6 head header hr html i iframe img input ins kbd keygen label legend li link
-                                main map mark menu menuitem meta meter nav noscript object ol optgroup option
-                                output p param picture pre progress q rp rt ruby s samp script section select
-                                small source span strong style sub summary sup table tbody td textarea tfoot th
-                                thead time title tr track u ul var video wbr svg path].freeze
+# Patch VirtualDOM to support SVG tags
+module VirtualDOM
+  module DOM
+    SVG_TAGS = %w[animate animateMotion animateTransform circle clipPath defs desc ellipse filter foreignObject g image
+                  line linearGradient marker mask metadata mpath path pattern polygon polyline radialGradient rect set
+                  stop svg switch symbol textPath tspan use view].freeze
+    SVG_TAGS.each do |tag|
+      define_method tag do |params = {}, &block|
+        if params.is_a?(String)
+          process_tag(tag, {}, block, params)
+        elsif params.is_a?(Hash)
+          process_tag(tag, params, block)
+        end
+      end
+    end
+  end
+end
 
 require 'porous/injection'
 require 'porous/component/class_methods'
