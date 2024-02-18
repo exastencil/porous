@@ -19,29 +19,30 @@ module Porous
                   default: 'localhost',
                   desc: 'The host address Porous will bind to'
 
-    MONITORING = %w[components pages].freeze
+    def server # rubocop:todo Metrics/MethodLength
+      Agoo::Log.configure(dir: '',
+                          console: true,
+                          classic: true,
+                          colorize: true,
+                          states: {
+                            INFO: true,
+                            DEBUG: false,
+                            connect: false,
+                            request: true,
+                            response: true,
+                            eval: true,
+                            push: true
+                          })
 
-    def server
-      MONITORING.each { |path| FileUtils.mkdir_p path }
-      build
-      start_live_reload
-      Rackup::Server.start environment: 'none', app: Porous::Server.new
-    end
-
-    no_commands do
-      def start_live_reload
-        opts = { only: /\.rb$/, relative: true }
-        @listener = Listen.to(*MONITORING, opts) do |modified, added, _removed|
-          # Load for server
-          (modified + added).each do |file|
-            load File.expand_path("#{Dir.pwd}/#{file}")
-          end
-          # Rebuild for browser
-          Thread.new { build }
-        end
-        @listener.start
-        at_exit { @listener.stop }
-      end
+      Agoo::Server.init 9292, Dir.pwd, thread_count: 0
+      Agoo::Server.use Rack::ContentLength
+      Agoo::Server.use Rack::Static, urls: ['/static']
+      Agoo::Server.use Rack::ShowExceptions
+      Agoo::Server.use Rack::TempfileReaper
+      Agoo::Server.handle :GET, '/connect', Porous::Server::Socket
+      Agoo::Server.handle nil, '**', Porous::Server.new
+      Server::Builder.new.build.start
+      Agoo::Server.start
     end
   end
 end

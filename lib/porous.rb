@@ -7,6 +7,7 @@ require 'opal-virtual-dom'
 Opal.append_path File.expand_path('../opal', __dir__)
 Opal.append_path File.expand_path(Dir.pwd)
 
+require 'agoo'
 require 'listen'
 
 require 'porous/version'

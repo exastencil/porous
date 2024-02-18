@@ -19,7 +19,6 @@ module Porous
           meta name: 'description', content: props[:description] if props[:description]
 
           script src: '/static/dist/application.js'
-          script src: '/static/dist/reload.js'
           script src: 'https://cdn.tailwindcss.com'
         end
 

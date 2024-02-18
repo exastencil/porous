@@ -3,6 +3,8 @@
 require 'thor'
 
 require 'porous'
+require 'porous/server/builder'
+require 'porous/server/socket'
 
 require 'rack'
 require 'rackup/server'

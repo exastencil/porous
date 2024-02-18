@@ -11,6 +11,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    agoo (2.15.8)
     ast (2.4.2)
     backport (1.2.0)
     benchmark (0.3.0)
@@ -125,6 +126,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  agoo (~> 2.15)
   porous!
   rake (~> 13.0)
   rspec (~> 3.2)

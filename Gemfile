@@ -11,3 +11,5 @@ gem 'rubocop', '~> 1.21'
 gem 'rubocop-rake'
 gem 'rubocop-rspec'
 gem 'solargraph', '~> 0.50.0'
+
+gem 'agoo', '~> 2.15'

@@ -44,4 +44,13 @@ end
 
 $document.ready do
   Porous::Application.mount_to($document.body)
+  Browser::Socket.new '/connect' do
+    on :open do |_e|
+      puts 'Connected to server!'
+    end
+
+    on :message do |e|
+      puts "Received #{e.data}"
+    end
+  end
 end
