@@ -1,24 +1,38 @@
 # frozen_string_literal: true
 
 module Porous
-  class Server
+  module Server
     class Socket
-      # TODO: Maintain connections
-      def self.call(env)
-        if env['rack.upgrade?'].nil?
-          [404, {}, []]
-        else
-          env['rack.upgrade'] = Socket
-          [200, {}, []]
+      def initialize
+        @clients = []
+        @mutex = Mutex.new
+      end
+
+      def on_open(client)
+        @mutex.synchronize do
+          @clients << client
         end
       end
 
-      def self.on_open(client)
-        client.subscribe('build')
+      def on_close(client)
+        @mutex.synchronize do
+          @clients.delete(client)
+        end
       end
 
-      def self.on_close(client)
-        client.unsubscribe('build')
+      def on_drained(_client); end
+
+      def on_message(client, data)
+        client.write("Handler says #{data}")
+      end
+
+      def public(channel, message)
+        output = "#{channel}|#{message}"
+        @mutex.synchronize do
+          @clients.each do |c|
+            c.write output
+          end
+        end
       end
     end
   end

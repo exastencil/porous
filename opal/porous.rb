@@ -5,6 +5,9 @@ require 'native'
 require 'promise'
 require 'browser/setup/full'
 
+require 'js'
+require 'console'
+
 require 'virtual_dom'
 require 'virtual_dom/support/browser'
 
@@ -46,11 +49,22 @@ $document.ready do
   Porous::Application.mount_to($document.body)
   Browser::Socket.new '/connect' do
     on :open do |_e|
-      puts 'Connected to server!'
+      $console.info 'Connected to server!'
     end
 
     on :message do |e|
-      puts "Received #{e.data}"
+      channel, content = e.data.split '|'
+      case channel
+      when 'build'
+        if content == 'started'
+          $console.log 'New build started…'
+        else
+          $console.log 'Reloading scripts…'
+          $document.location.reload
+        end
+      else
+        $console.log "Received #{e.data}"
+      end
     end
   end
 end

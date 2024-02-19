@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 module Porous
-  class Server
+  module Server
     class Builder
       def initialize
-        @mutex = Mutex.new
+        @build_queue = Queue.new
         @last_build = nil
-        @latest_change = nil
+        @latest_change = Dir.glob(File.join('**', '*.rb')).map { |f| File.mtime f }.max
       end
 
       def build
         components = Dir.glob(File.join('**', '*.rb')).map do |relative_path|
+          modified = File.mtime relative_path
+          @latest_change = modified if modified > @latest_change
           "require '#{relative_path}'"
         end
         build_string = "require 'porous'; #{components.join ";"}".gsub '.rb', ''
@@ -21,24 +23,25 @@ module Porous
         self
       end
 
-      def start
-        opts = { only: /\.rb$/, relative: true }
-        @listener = Listen.to(*Porous::Server::MONITORING, opts) do |modified, added, _removed|
-          # Load for server
-          (modified + added).each do |file|
-            load File.expand_path("#{Dir.pwd}/#{file}")
-          end
-          # Rebuild for browser
-          Thread.new do
-            build
+      def start # rubocop:todo Metrics/AbcSize
+        loop do
+          sleep 1
+          if @build_queue.empty?
+            modified = Dir.glob(File.join('**', '*.rb')).map { |f| File.mtime f }.max
+            next unless modified > @last_build
+
+            @build_queue.push modified
+          else
+            # Load for server
+            Dir.glob(File.join('**', '*.rb')).map { |f| load File.expand_path("#{Dir.pwd}/#{f}") }
+            # Rebuild for browser
+            $socket.public 'build', 'started'
+            Thread.new { build }.join
             # Notify clients
-            @mutex.synchronize do
-              Agoo.publish 'build', @last_build.inspect
-            end
+            $socket.public 'build', @last_build.inspect
+            @build_queue.clear
           end
         end
-        @listener.start
-        at_exit { @listener.stop }
       end
     end
   end

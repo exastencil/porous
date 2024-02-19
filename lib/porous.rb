@@ -28,7 +28,6 @@ Dir.glob(File.join('{components,pages}', '**', '*.rb')).each do |relative_path|
 end
 
 require 'porous/application'
-require 'porous/server' unless RUBY_ENGINE == 'opal'
 
 module Porous
   class Error < StandardError; end

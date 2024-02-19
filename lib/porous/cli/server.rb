@@ -34,15 +34,19 @@ module Porous
                             push: true
                           })
 
-      Agoo::Server.init 9292, Dir.pwd, thread_count: 0
+      Agoo::Server.init 9292, Dir.pwd, thread_count: 1
       Agoo::Server.use Rack::ContentLength
       Agoo::Server.use Rack::Static, urls: ['/static']
       Agoo::Server.use Rack::ShowExceptions
       Agoo::Server.use Rack::TempfileReaper
-      Agoo::Server.handle :GET, '/connect', Porous::Server::Socket
-      Agoo::Server.handle nil, '**', Porous::Server.new
-      Server::Builder.new.build.start
+
+      $socket ||= Porous::Server::Socket.new
+
+      Agoo::Server.handle :GET, '/connect', Porous::Server::Connect.new
+      Agoo::Server.handle nil, '**', Porous::Server::Application.new
       Agoo::Server.start
+
+      Server::Builder.new.build.start
     end
   end
 end

@@ -18,7 +18,7 @@ module Porous
           end
           meta name: 'description', content: props[:description] if props[:description]
 
-          script src: '/static/dist/application.js'
+          script src: '/static/dist/application.js', id: 'application'
           script src: 'https://cdn.tailwindcss.com'
         end
 
