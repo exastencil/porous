@@ -40,12 +40,13 @@ module Porous
       Agoo::Server.use Rack::ShowExceptions
       Agoo::Server.use Rack::TempfileReaper
 
+      # Socket Communication
       $socket ||= Porous::Server::Socket.new
-
       Agoo::Server.handle :GET, '/connect', Porous::Server::Connect.new
+      # Server-Side Rendering
       Agoo::Server.handle nil, '**', Porous::Server::Application.new
       Agoo::Server.start
-
+      # Live Reload Builder
       Server::Builder.new.build.start
     end
   end

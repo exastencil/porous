@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'opal/builder_scheduler/sequential'
+
 module Porous
   module Server
     class Builder
@@ -16,33 +18,35 @@ module Porous
           "require '#{relative_path}'"
         end
         build_string = "require 'porous'; #{components.join ";"}".gsub '.rb', ''
-        builder = Opal::Builder.new
+        builder = Opal::Builder.new scheduler: Opal::BuilderScheduler::Sequential
         builder.build_str build_string, '(inline)'
         File.binwrite "#{Dir.pwd}/static/dist/application.js", builder.to_s
         @last_build = Time.now
         self
       end
 
-      def start # rubocop:todo Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize
+      def start
         loop do
-          sleep 1
-          if @build_queue.empty?
-            modified = Dir.glob(File.join('**', '*.rb')).map { |f| File.mtime f }.max
-            next unless modified > @last_build
+          sleep 2
+          next unless @build_queue.empty?
 
-            @build_queue.push modified
-          else
-            # Load for server
-            Dir.glob(File.join('**', '*.rb')).map { |f| load File.expand_path("#{Dir.pwd}/#{f}") }
-            # Rebuild for browser
-            $socket.public 'build', 'started'
-            Thread.new { build }.join
-            # Notify clients
-            $socket.public 'build', @last_build.inspect
-            @build_queue.clear
-          end
+          modified = Dir.glob(File.join('**', '*.rb')).map { |f| File.mtime f }.max
+          next unless modified > @last_build
+
+          @build_queue.push modified
+          # Load for server
+          Dir.glob(File.join('**', '*.rb')).map { |f| load File.expand_path("#{Dir.pwd}/#{f}") }
+
+          # Rebuild for browser
+          Thread.new { build }.join
+
+          # Notify clients
+          $socket.public 'build', @last_build.inspect
+          @build_queue.clear
         end
       end
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end
