@@ -28,8 +28,8 @@ module Porous
                             INFO: true,
                             DEBUG: false,
                             connect: false,
-                            request: true,
-                            response: true,
+                            request: false,
+                            response: false,
                             eval: true,
                             push: true
                           })

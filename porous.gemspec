@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'listen', '~> 3.0'
+  spec.add_dependency 'agoo', '~> 2.15'
   spec.add_dependency 'opal-browser', '~> 0.3.4'
   spec.add_dependency 'opal-virtual-dom', '~> 0.6.1'
   spec.add_dependency 'rackup', '~> 2.1'

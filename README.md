@@ -12,7 +12,7 @@ The closest thing to this I could find was [Volt](https://github.com/voltrb/volt
 - 🖥️ Server-side rendering (server responds with the entire initial page populated for SEO)
 - 💻 Client-side rendering (application bundle is served and interactions and subsequent pages are rendered client-side)
 - 🌄 Serves static files (from `static` folder)
-- 🔥 Hot reloading (via HTTP polling and browser refresh)
+- 🔥 Hot reloading (via WebSocket push and browser refresh)
 
 ## Design
 

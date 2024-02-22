@@ -1,7 +1,21 @@
 ## [Planned]
 
-- WebSockets support
 - Production mode
+- Data Abstraction Layer / Object Relational Model
+- Event Model
+- Plugin / Extension system
+
+- Frontend Extensions
+  - Tailwind CSS (tailwind-cli)
+
+- Persistence Extensions
+  - Memory (default)
+	- Disk (file)
+	- Databases (SQLite, PostgreSQL)
+
+## [0.3.0] - 22 February 2024
+
+- WebSockets support
 
 ## [0.2.0] - 18 February 2024
 
