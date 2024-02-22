@@ -18,7 +18,7 @@ module Porous
           "require '#{relative_path}'"
         end
         build_string = "require 'porous'; #{components.join ";"}".gsub '.rb', ''
-        builder = Opal::Builder.new scheduler: Opal::BuilderScheduler::Sequential
+        builder = Opal::Builder.new scheduler: Opal::BuilderScheduler::Sequential, cache: false
         builder.build_str build_string, '(inline)'
         File.binwrite "#{Dir.pwd}/static/dist/application.js", builder.to_s
         @last_build = Time.now
@@ -28,7 +28,7 @@ module Porous
       # rubocop:disable Metrics/AbcSize
       def start
         loop do
-          sleep 2
+          sleep 0.25
           next unless @build_queue.empty?
 
           modified = Dir.glob(File.join('**', '*.rb')).map { |f| File.mtime f }.max

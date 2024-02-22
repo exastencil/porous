@@ -29,7 +29,7 @@ end
 
 $document.ready do
   Porous::Application.mount_to($document.body)
-  Browser::Socket.new '/connect' do
+  Browser::Socket.new 'ws://localhost:9292/connect' do
     on :open do |_e|
       $console.info 'Connected to server!'
     end
