@@ -5,7 +5,8 @@ require 'opal/builder_scheduler/sequential'
 module Porous
   module Server
     class Builder
-      def initialize
+      def initialize(environment = :development)
+        @environment = environment
         @build_queue = Queue.new
         @last_build = nil
         @latest_change = Dir.glob(File.join('**', '*.rb')).map { |f| File.mtime f }.max
@@ -17,7 +18,8 @@ module Porous
           @latest_change = modified if modified > @latest_change
           "require '#{relative_path}'"
         end
-        build_string = "require 'porous'; #{components.join ";"}".gsub '.rb', ''
+        build_string = "require 'porous'; #{components.join ";"}; ".gsub '.rb', ''
+        build_string << inject_socket_connection
         builder = Opal::Builder.new scheduler: Opal::BuilderScheduler::Sequential, cache: false
         builder.build_str build_string, '(inline)'
         File.binwrite "#{Dir.pwd}/static/dist/application.js", builder.to_s
@@ -42,11 +44,16 @@ module Porous
           Thread.new { build }.join
 
           # Notify clients
-          $socket.public 'build', @last_build.inspect
+          $socket&.public 'build', @last_build.inspect
           @build_queue.clear
         end
       end
       # rubocop:enable Metrics/AbcSize
+
+      def inject_socket_connection
+        uri = @environment == :production ? 'wss://localhost/connect' : 'ws://localhost:9292/connect'
+        "$connection = '#{uri}'; "
+      end
     end
   end
 end

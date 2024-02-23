@@ -1,6 +1,5 @@
 ## [Planned]
 
-- Production mode
 - Data Abstraction Layer / Object Relational Model
 - Event Model
 - Plugin / Extension system
@@ -12,6 +11,17 @@
   - Memory (default)
 	- Disk (file)
 	- Databases (SQLite, PostgreSQL)
+
+## [Unreleased]
+
+- Production Mode
+	- `porous build production`
+	- `porous server`
+	- Needs `ssl/cert.pem` and `ssl/key.pem`
+	- Binds on :80 and :443
+- Development Mode
+	- `porous dev`
+	- Binds on :9292
 
 ## [0.3.0] - 22 February 2024
 

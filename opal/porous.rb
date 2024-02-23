@@ -29,7 +29,7 @@ end
 
 $document.ready do
   Porous::Application.mount_to($document.body)
-  Browser::Socket.new 'ws://localhost:9292/connect' do
+  Browser::Socket.new $connection do
     on :open do |_e|
       $console.info 'Connected to server!'
     end
@@ -38,14 +38,9 @@ $document.ready do
       channel, content = e.data.split '|'
       case channel
       when 'build'
-        if content == 'started'
-          $console.log 'New build started…'
-        else
-          $console.log 'Reloading scripts…'
-          $document.location.reload
-        end
+        $document.location.reload unless content == 'started'
       else
-        $console.log "Received #{e.data}"
+        $console.log e.data
       end
     end
   end
