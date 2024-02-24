@@ -7,7 +7,9 @@ module Porous
     namespace :dev
 
     desc 'dev', 'Starts a Porous development server'
-    def dev # rubocop:todo Metrics/MethodLength
+    def dev # rubocop:todo Metrics/MethodLength, Metrics/AbcSize
+      empty_directory 'static/dist', verbose: false, force: options[:force]
+
       Agoo::Log.configure(
         dir: '',
         console: true,
