@@ -42,21 +42,21 @@ Porous is not a framework. You don't build an application with it as a dependenc
 
 ## Usage
 
-Porous is still pre-alpha and so is not ready for usage yet, but the general idea is that you would define your application's entities, pages, components and events in Ruby scripts structured in a specific way. Then you would simply run `porous` while pointing it to that folder and it will spin up a Rack-compatible web server for you to use.
+Porous is still pre-alpha and so is not ready for usage yet, but the general idea is that you would define your application's entities, pages, components and events in Ruby scripts structured in a specific way. Then you would simply run `porous server` while pointing it to that folder and it will spin up a Rack-compatible web server for you to use.
 
 > ⚠️ Expect any and all APIs to change radically until version 1.0! Hence why it won't be documented or properly tested until things settle to a more stable state.
 
-To start a new Porous project simply `gem install porous` using whichever Ruby environment you want to use (Ruby 3.0+). Then change to that directory and run:
+To start a new Porous project simply `gem install porous` using whichever Ruby environment you want to use (Ruby 3.0+) and then `porous new` with your project name. Then change to that directory and run:
 
-    $ porous server
+    $ porous dev
 
-By default Porous will run at `localhost:9292`. Now you can edit `pages/home.rb` or add more pages. Files you modify will be hot-reloaded so you can simply open the page in your browser and edit the file. Hot-reloading will be improved once WebSockets support is implemented.
+By default Porous will run at `localhost:9292`. Now you can edit `pages/home.rb` or add more pages. Files you modify will be hot-reloaded, so you can simply open the page in your browser and edit the file.
 
 ### Running examples
 
-To test out some example "apps" using Porous you can navigate to the examples folder and in any folder run:
+To test out an example application using Porous you can clone the [Porous website](https://github.com/exastencil/porous.dev) and in that directory:
 
-    $ porous server
+    $ porous dev
 
 ## Development
 

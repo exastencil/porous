@@ -14,6 +14,8 @@
 
 ## [Unreleased]
 
+## [0.3.1] - 24 February 2024
+
 - Production Mode
 	- `porous build production`
 	- `porous server`
@@ -22,6 +24,7 @@
 - Development Mode
 	- `porous dev`
 	- Binds on :9292
+- Serves favicon from `static/favicon.svg`
 
 ## [0.3.0] - 22 February 2024
 
