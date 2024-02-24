@@ -20,6 +20,7 @@ module Porous
 
           script src: '/static/dist/application.js', id: 'application'
           script src: 'https://cdn.tailwindcss.com'
+          link rel: 'icon', href: '/static/favicon.svg'
         end
 
         body class: 'bg-gray-50 dark:bg-gray-900' do
