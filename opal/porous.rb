@@ -3,10 +3,21 @@
 require 'opal'
 require 'native'
 require 'promise'
-require 'browser/setup/full'
-
 require 'js'
 require 'console'
+
+require 'browser/version'
+require 'browser/utils'
+require 'browser/form_data'
+require 'browser/support'
+require 'browser/event'
+require 'browser/window'
+require 'browser/dom'
+require 'browser/delay'
+require 'browser/interval'
+require 'browser/animation_frame'
+require 'browser/socket'
+require 'browser/history'
 
 require 'virtual_dom'
 require 'virtual_dom/support/browser'
