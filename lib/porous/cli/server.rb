@@ -23,17 +23,14 @@ module Porous
                           })
 
       Agoo::Server.init(
-        80, '.',
+        0, 'static',
+        root_first: true,
         thread_count: 0,
         ssl_cert: 'ssl/cert.pem',
         ssl_key: 'ssl/key.pem',
-        bind: [
-          'http://127.0.0.1:80',
-          'https://127.0.0.1:443'
-        ]
+        bind: 'https://:443'
       )
       Agoo::Server.use Rack::ContentLength
-      Agoo::Server.use Rack::Static, urls: ['/static']
 
       # Socket Communication
       $socket ||= Porous::Server::Socket.new

@@ -7,7 +7,7 @@ module Porous
     namespace :dev
 
     desc 'dev', 'Starts a Porous development server'
-    def dev # rubocop:todo Metrics/MethodLength, Metrics/AbcSize
+    def dev # rubocop:todo Metrics/MethodLength
       empty_directory 'static/dist', verbose: false, force: options[:force]
 
       Agoo::Log.configure(
@@ -19,16 +19,15 @@ module Porous
           INFO: true,
           DEBUG: false,
           connect: false,
-          request: false,
+          request: true,
           response: false,
-          eval: true,
-          push: true
+          eval: false,
+          push: false
         }
       )
 
-      Agoo::Server.init 9292, Dir.pwd, thread_count: 1
+      Agoo::Server.init 9292, 'static', thread_count: 1, root_first: true
       Agoo::Server.use Rack::ContentLength
-      Agoo::Server.use Rack::Static, urls: ['/static']
       Agoo::Server.use Rack::ShowExceptions
 
       # Socket Communication
