@@ -38,7 +38,7 @@ module Porous
   class InvalidRouteError < Error; end
 end
 
-$document.ready do
+$document.on 'dom:load' do
   Porous::Application.mount_to($document.body)
   Browser::Socket.new $connection do
     on :open do |_e|

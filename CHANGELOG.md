@@ -14,6 +14,8 @@
 
 ## [Unreleased]
 
+- Defer JS so page renders while loading
+
 ## [0.3.2] - 25 February 2024
 
 - Serve static files with Agoo

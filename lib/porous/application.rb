@@ -18,8 +18,8 @@ module Porous
           end
           meta name: 'description', content: props[:description] if props[:description]
 
-          script src: '/porous.js'
-          script src: '/app.js'
+          script src: '/porous.js', defer: true
+          script src: '/app.js', defer: true
           script src: 'https://cdn.tailwindcss.com'
           link rel: 'icon', href: '/favicon.svg'
         end
