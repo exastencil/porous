@@ -12,17 +12,22 @@ module Porous
         @latest_change = Dir.glob(File.join('**', '*.rb')).map { |f| File.mtime f }.max
       end
 
-      def build
+      def build # rubocop:todo Metrics/AbcSize
         components = Dir.glob(File.join('**', '*.rb')).map do |relative_path|
           modified = File.mtime relative_path
           @latest_change = modified if modified > @latest_change
           "require '#{relative_path}'"
         end
-        build_string = "require 'porous'; #{components.join ";"}; ".gsub '.rb', ''
+        # Porous
+        builder = Opal::Builder.new scheduler: Opal::BuilderScheduler::Sequential, cache: false
+        builder.build_str "require 'porous'", '(inline)'
+        File.binwrite "#{Dir.pwd}/static/porous.js", builder.to_s
+        # App
+        build_string = "#{components.join ";"}; ".gsub '.rb', ''
         build_string << inject_socket_connection
         builder = Opal::Builder.new scheduler: Opal::BuilderScheduler::Sequential, cache: false
         builder.build_str build_string, '(inline)'
-        File.binwrite "#{Dir.pwd}/static/dist/application.js", builder.to_s
+        File.binwrite "#{Dir.pwd}/static/app.js", builder.to_s
         @last_build = Time.now
         self
       end

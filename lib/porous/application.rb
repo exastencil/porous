@@ -18,9 +18,10 @@ module Porous
           end
           meta name: 'description', content: props[:description] if props[:description]
 
-          script src: '/static/dist/application.js', id: 'application'
+          script src: '/porous.js'
+          script src: '/app.js'
           script src: 'https://cdn.tailwindcss.com'
-          link rel: 'icon', href: '/static/favicon.svg'
+          link rel: 'icon', href: '/favicon.svg'
         end
 
         body class: 'bg-gray-50 dark:bg-gray-900' do

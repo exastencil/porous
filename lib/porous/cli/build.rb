@@ -14,7 +14,7 @@ module Porous
 
     desc 'build ENV', 'Build static assets for environment (default: development)'
     def build(env = :development)
-      empty_directory 'static/dist', verbose: false, force: options[:force]
+      empty_directory 'static', verbose: false, force: options[:force]
       Porous::Server::Builder.new(env.to_sym).build
     end
   end
