@@ -14,6 +14,11 @@
 
 ## [Unreleased]
 
+## [0.3.2] - 25 February 2024
+
+- Serve static files with Agoo
+- Split Porous JavaScripts from application scripts
+
 ## [0.3.1] - 24 February 2024
 
 - Production Mode
