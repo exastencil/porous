@@ -2,33 +2,16 @@
 
 module Porous
   class Application
-    include Porous::Component
+    def initialize
+      @app = Rack::Builder.new do
+        use Rack::Static, urls: ['/'], root: 'static', cascade: true if defined? Rack::Static
 
-    # rubocop:disable Metrics/AbcSize
-    def render
-      html do
-        head do
-          meta charset: 'UTF-8'
-          meta name: 'viewport', content: 'width=device-width, initial-scale=1.0'
-
-          if props[:title]
-            title do
-              text props[:title]
-            end
-          end
-          meta name: 'description', content: props[:description] if props[:description]
-
-          script src: '/porous.js', defer: true
-          script src: '/app.js', defer: true
-          script src: 'https://cdn.tailwindcss.com'
-          link rel: 'icon', href: '/favicon.svg'
-        end
-
-        body class: 'bg-gray-50 dark:bg-gray-900' do
-          component Porous::Router, props: { path: props[:path], query: props[:query] }
+        run do |env|
+          [200, {}, [env['PATH_INFO']]]
         end
       end
     end
-    # rubocop:enable Metrics/AbcSize
+
+    def call(env) = @app.call(env)
   end
 end

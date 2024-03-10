@@ -2,6 +2,9 @@ AllCops:
   TargetRubyVersion: 3.0
   NewCops: enable
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: single_quotes
@@ -25,7 +28,7 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 15
   AllowedMethods:
-  - render
+    - render
 
 require:
   - rubocop-rake

@@ -23,16 +23,13 @@ Gem::Specification.new do |spec|
   spec.files = Dir.chdir(__dir__) do
     `git ls-files -z`.split("\x0").reject do |f|
       (File.expand_path(f) == __FILE__) ||
-        f.start_with?(*%w[bin/ test/ spec/ features/ examples/ .git .github appveyor Gemfile])
+        f.start_with?(*%w[bin/ spec/ .git .github Gemfile])
     end
   end
   spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'agoo', '~> 2.15'
-  spec.add_dependency 'opal-browser', '~> 0.3.4'
-  spec.add_dependency 'opal-virtual-dom', '~> 0.6.1'
   spec.add_dependency 'rackup', '~> 2.1'
   spec.add_dependency 'thor', '~> 1.3'
 
