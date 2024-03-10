@@ -7,7 +7,16 @@ module Porous
         use Rack::Static, urls: ['/'], root: 'static', cascade: true if defined? Rack::Static
 
         run do |env|
-          [200, {}, [env['PATH_INFO']]]
+          # Server-side rendering
+          page = ObjectSpace.each_object(Class).select { |c| c < Porous::Page }.find do |p|
+            p.route == env['PATH_INFO']
+          end
+
+          if page
+            [200, { 'content-type' => 'text/html; charset=utf-8' }, [page.new(env['PATH_INFO']).render]]
+          else
+            [404, {}, ['404 Page not found']]
+          end
         end
       end
     end

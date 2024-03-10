@@ -1,0 +1,3 @@
+guard 'rack' do
+  watch(%r{^(components|pages)/**/.rb$})
+end

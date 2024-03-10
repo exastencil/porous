@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-require 'porous/version'
-require 'porous/application'
+require 'paggio'
 
-Dir.glob(File.join('{components,pages}', '**', '*.rb')).each do |relative_path|
-  require File.expand_path("#{Dir.pwd}/#{relative_path}")
-end
+require 'porous/version'
+
+require 'porous/component'
+require 'porous/page'
+
+require 'porous/application'
 
 module Porous
   class Error < StandardError; end
