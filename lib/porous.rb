@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'paggio'
-
 require 'porous/version'
 
+# The Render Pipeline
+require 'porous/render_context'
 require 'porous/component'
 require 'porous/page'
 

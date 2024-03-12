@@ -4,7 +4,7 @@ module Porous
   class Page < Component
     def initialize(path = '/', props: {})
       parse_params path
-      super(props: props)
+      super(props: props, context: RenderContext.new(self))
     end
 
     def route = '/'

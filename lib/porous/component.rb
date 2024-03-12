@@ -2,14 +2,26 @@
 
 module Porous
   class Component
-    def initialize(props: {})
+    def initialize(props: {}, context: nil)
+      @context = context || RenderContext.new(self)
       @props = props
     end
 
-    def template = proc { div }
+    def content = nil
 
-    def render
-      ::Paggio.html(&template)
+    def evaluate!
+      @context.clear if @context.root == self
+      content
+    end
+
+    def render!
+      @context.render
+    end
+
+    protected
+
+    def button
+      @context.tag(:button)
     end
   end
 end
