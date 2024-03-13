@@ -29,30 +29,28 @@ module Porous
       component_instance.evaluate!(&block)
     end
 
-    def a(text = nil, **attrs, &block)
-      @context.tag(:a, attrs, text, &block)
+    # Content-based closing tags: e.g. <tag>content</tag>
+    %i[a abbr address article aside audio b bdi bdo blockquote body button
+       canvas caption cite code colgroup data datalist dd del details dfn dialog div dl dt
+       em fencedframe fieldset figcaption figure footer form
+       h1 h2 h3 h4 h5 h6 head header hgroup html i iframe ins
+       kbd label legend li main map mark menu meter nav noscript
+       object ol optgroup option output p picture portal pre progress q rp rt ruby
+       s samp script search section select slot small span strong style sub summary sup
+       table tbody td template textarea tfoot th thead time title tr u ul var video].each do |tag|
+      define_method(tag) do |text = nil, **attrs, &block|
+        @context.tag(tag, attrs, text, &block)
+      end
     end
 
-    def button(text = nil, **attrs, &block)
-      @context.tag(:button, attrs, text, &block)
+    # Self-closing tags e.g. <hr>
+    %i[area base br col embed hr img input link meta source track wbr].each do |tag|
+      define_method(tag) do |**attrs|
+        @context.tag(tag, attrs, self_closing: true)
+      end
     end
 
-    def div(text = nil, **attrs, &block)
-      @context.tag(:div, attrs, text, &block)
-    end
-
-    def em(text = nil, **attrs, &block)
-      @context.tag(:em, attrs, text, &block)
-    end
-
-    def h1(text = nil, **attrs, &block)
-      @context.tag(:h1, attrs, text, &block)
-    end
-
-    def p(text = nil, **attrs, &block)
-      @context.tag(:p, attrs, text, &block)
-    end
-
+    # Bare text node
     def text(string)
       @context.text(string)
     end

@@ -17,7 +17,7 @@ RSpec.describe Porous::Component do
         def content
           div class: 'card' do
             h1 'Title'
-            p 'Content'
+            hr
             component Class.new(Porous::Component) { def content = button }
           end
         end
@@ -63,7 +63,7 @@ RSpec.describe Porous::Component do
     it 'renders a child component' do
       card = card_class.new
       card.evaluate!
-      expect(card.render!).to eq('<div class="card"><h1>Title</h1><p>Content</p><button></button></div>')
+      expect(card.render!).to eq('<div class="card"><h1>Title</h1><hr><button></button></div>')
     end
 
     it 'renders content in a block inside a child component in its own context' do

@@ -20,7 +20,7 @@ module Porous
       @buffer = []
     end
 
-    def tag(symbol, attrs = {}, content = nil)
+    def tag(symbol, attrs = {}, content = nil, self_closing: false)
       attributes = process_attributes(attrs).map { |k, v| " #{k}=\"#{v}\"" }.join
       @buffer << "<#{symbol}#{attributes}>"
       if block_given?
@@ -28,7 +28,7 @@ module Porous
       elsif content
         text content
       end
-      @buffer << "</#{symbol}>"
+      @buffer << "</#{symbol}>" unless self_closing
     end
 
     def text(string)
