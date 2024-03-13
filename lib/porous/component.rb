@@ -9,9 +9,9 @@ module Porous
 
     def content = nil
 
-    def evaluate!
+    def evaluate!(&block)
       @context.clear if @context.root == self
-      content
+      content(&block)
     end
 
     def render!
@@ -19,6 +19,19 @@ module Porous
     end
 
     protected
+
+    def component(component_class_or_instance, &block)
+      component_instance = if component_class_or_instance.is_a?(Class)
+                             component_class_or_instance.new(context: @context)
+                           else
+                             component_class_or_instance
+                           end
+      component_instance.evaluate!(&block)
+    end
+
+    def a(text = nil, **attrs, &block)
+      @context.tag(:a, attrs, text, &block)
+    end
 
     def button(text = nil, **attrs, &block)
       @context.tag(:button, attrs, text, &block)
