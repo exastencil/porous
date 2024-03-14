@@ -2,7 +2,7 @@
 
 module Porous
   class RenderContext
-    attr_reader :root
+    attr_reader :root, :buffer
 
     def initialize(root)
       @buffer = []

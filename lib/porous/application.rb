@@ -8,12 +8,14 @@ module Porous
 
         run do |env|
           # Server-side rendering
-          page = ObjectSpace.each_object(Class).select { |c| c < Porous::Page }.find do |p|
+          page_class = ObjectSpace.each_object(Class).select { |c| c < Porous::Page }.find do |p|
             p.route == env['PATH_INFO']
           end
 
-          if page
-            [200, { 'content-type' => 'text/html; charset=utf-8' }, [page.new(env['PATH_INFO']).render]]
+          if page_class
+            page = page_class.new env['PATH_INFO']
+            page.evaluate!
+            [200, { 'content-type' => 'text/html; charset=utf-8' }, page.buffer]
           else
             [404, {}, ['404 Page not found']]
           end

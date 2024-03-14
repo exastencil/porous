@@ -11,6 +11,12 @@ module Porous
     def page_title = nil
     def page_description = nil
 
+    def buffer
+      @context.buffer
+    end
+
+    protected
+
     def parse_params(_path)
       @params = {}
     end
