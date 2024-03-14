@@ -20,15 +20,16 @@ module Porous
       @buffer = []
     end
 
-    def tag(symbol, attrs = {}, content = nil, self_closing: false)
+    def tag(symbol, attrs = {}, content = nil, self_closing: false, foreign: false)
       attributes = process_attributes(attrs).map { |k, v| " #{k}=\"#{v}\"" }.join
-      @buffer << "<#{symbol}#{attributes}>"
+      tag_name = foreign ? symbol : camel_case_lower(symbol)
+      @buffer << "<#{tag_name}#{attributes}#{" /" if self_closing && foreign}>"
       if block_given?
         yield
       elsif content
         text content
       end
-      @buffer << "</#{symbol}>" unless self_closing
+      @buffer << "</#{tag_name}>" unless self_closing
     end
 
     def text(string)
@@ -53,6 +54,10 @@ module Porous
           result[new_key] = value
         end
       end
+    end
+
+    def camel_case_lower(symbol)
+      symbol.to_s.split('_').inject([]) { |buffer, e| buffer.push(buffer.empty? ? e : e.capitalize) }.join
     end
   end
 end

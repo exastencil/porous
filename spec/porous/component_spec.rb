@@ -92,4 +92,25 @@ RSpec.describe Porous::Component do
       expect(link.render!).to eq('<a href="https://porous.dev">Click me</a>')
     end
   end
+
+  describe 'foreign contexts' do
+    let :button_class do
+      Class.new(described_class) do
+        def content
+          button do
+            svg xmlns: 'http://www.w3.org/2000/svg' do
+              path fill_rule: 'evenodd', clip_rule: 'evenodd', d: 'M11 0 5 6h6V0h1v6h6z', fill: '#758CA3'
+            end
+            em 'Click me!'
+          end
+        end
+      end
+    end
+
+    it 'self-closes SVG tags according to XHTML standard' do
+      button = button_class.new
+      button.evaluate!
+      expect(button.render!).to eq('<button><svg xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 0 5 6h6V0h1v6h6z" fill="#758CA3" /></svg><em>Click me!</em></button>')
+    end
+  end
 end
