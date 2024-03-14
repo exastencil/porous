@@ -72,4 +72,24 @@ RSpec.describe Porous::Component do
       expect(link.render!).to eq('<a>Substitute text from Parent</a>')
     end
   end
+
+  describe 'properties' do
+    let :link_class do
+      Class.new(described_class) do
+        property :href
+
+        def content
+          a href: @href do
+            block_given? ? yield : text('Click me')
+          end
+        end
+      end
+    end
+
+    it 'can accept properties' do
+      link = link_class.new props: { href: 'https://porous.dev' }
+      link.evaluate!
+      expect(link.render!).to eq('<a href="https://porous.dev">Click me</a>')
+    end
+  end
 end

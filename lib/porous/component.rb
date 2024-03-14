@@ -4,7 +4,9 @@ module Porous
   class Component
     def initialize(props: {}, context: nil)
       @context = context || RenderContext.new(self)
-      @props = props
+      props.select { |key, _| self.class.properties.include?(key.to_sym) }.each do |prop, value|
+        instance_variable_set("@#{prop}", value)
+      end
     end
 
     def content = nil
@@ -16,6 +18,15 @@ module Porous
 
     def render!
       @context.render
+    end
+
+    def self.property(prop)
+      @properties ||= []
+      @properties << prop
+    end
+
+    def self.properties
+      @properties || []
     end
 
     protected
