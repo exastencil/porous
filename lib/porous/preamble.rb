@@ -19,6 +19,7 @@ module Porous
           meta charset: 'utf-8'
           title @title if @title
           meta name: 'description', content: @description if @description
+          link rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml'
         end
 
         yield
