@@ -31,9 +31,9 @@ module Porous
 
     protected
 
-    def component(component_class_or_instance, &block)
+    def component(component_class_or_instance, **props, &block)
       component_instance = if component_class_or_instance.is_a?(Class)
-                             component_class_or_instance.new(context: @context)
+                             component_class_or_instance.new(props: props, context: @context)
                            else
                              component_class_or_instance
                            end
