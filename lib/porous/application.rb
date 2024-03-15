@@ -9,7 +9,7 @@ module Porous
         run do |env|
           # Server-side rendering
           page_class = ObjectSpace.each_object(Class).select { |c| c < Porous::Page }.find do |p|
-            p.route == env['PATH_INFO']
+            p.page_metadata[:route] == env['PATH_INFO']
           end
 
           if page_class
