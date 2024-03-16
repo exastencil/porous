@@ -2,8 +2,11 @@
 
 module Porous
   class Page < Component
-    def initialize(path = '/', props: {})
-      parse_params path
+    def initialize(props: {}, params: {})
+      @params = params
+      params.each_pair do |param, value|
+        instance_variable_set("@#{param}", value)
+      end
       super(props: props, context: RenderContext.new(self))
     end
 
@@ -33,9 +36,5 @@ module Porous
     protected
 
     def page_metadata = self.class.page_metadata
-
-    def parse_params(_path)
-      @params = {}
-    end
   end
 end

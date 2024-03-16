@@ -17,6 +17,8 @@ module Porous
       html do
         head do
           meta charset: 'utf-8'
+          meta name: 'viewport', content: 'width=device-width,initial-scale=1'
+
           title @title if @title
           meta name: 'description', content: @description if @description
           link rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml'

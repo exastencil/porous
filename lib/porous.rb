@@ -8,6 +8,7 @@ require 'porous/component'
 require 'porous/preamble'
 require 'porous/page'
 
+require 'porous/router'
 require 'porous/application'
 
 module Porous
