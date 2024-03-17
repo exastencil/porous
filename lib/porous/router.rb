@@ -32,5 +32,10 @@ module Porous
 
       page_class.new params: params
     end
+
+    # Utility method to inspect the currently registered routes
+    def self.routes
+      ObjectSpace.each_object(Class).select { |c| c < Porous::Page }.to_h { |p| [p.page_metadata[:route], p] }
+    end
   end
 end

@@ -15,13 +15,6 @@ RSpec.describe Porous::Router do
     end
   end
 
-  let! :blog_page do
-    Class.new(Porous::Page) do
-      metadata route: '/blog/:page', title: 'Blog Page'
-      def content = body("Page #{@page}", class: 'blog-page')
-    end
-  end
-
   it 'is a singleton class' do
     expect(described_class.instance).to eq described_class.instance
   end
@@ -35,6 +28,11 @@ RSpec.describe Porous::Router do
   end
 
   it 'can create a page instance with params populated' do
+    blog_page = Class.new(Porous::Page) do
+      metadata route: '/blog/:page', title: 'Blog Page'
+      def content = body("Page #{@page}", class: 'blog-page')
+    end
+
     page = described_class.create_from_path '/blog/1'
     expect(page).to be_a blog_page
     expect(page.instance_eval { @params }).to eq({ page: '1' })

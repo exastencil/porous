@@ -1,14 +1,10 @@
-# Bundler Setup
-require 'rubygems'
-require 'bundler'
-Bundler.setup
-Bundler.require
+# frozen_string_literal: true
 
-# Load application-specific code
-Dir.glob File.join(__dir__, '{components,pages}', '**', '*.rb'), &method(:require)
+# Porous Core
+require 'porous'
 
 # Serve static files
-require 'rack/static'
+require 'porous/extension/static'
 
 # Server-side rendering
 run Porous::Application.new

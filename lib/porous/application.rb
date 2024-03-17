@@ -4,6 +4,9 @@ module Porous
   class Application
     def initialize
       @app = Rack::Builder.new do
+        # Load application code
+        require 'porous/extension/loader'
+
         use Rack::Static, urls: ['/'], root: 'static', cascade: true if Extension.loaded? :Static
 
         run do |env|
